@@ -4,29 +4,29 @@ simple couchDb driver for Qt
 ## Examples
 open the main.cpp and add your changes
 
-*Init the library
+* Init the library
   On local database,
   `_mqcouch = new mqcouch(_mqhttp, true);`
   Or a network connection,
   `_mqcouch = new mqcouch(_mqhttp, "http://192.168.2.5:5984", true);`
   
-*See database connection is alive
+* See database connection is alive
   `_mqcouch->isActive();`
  
-*Current database array
+* Current database array
   `qDebug() << "Current databases:" <<_mqcouch->allDatabases();`
  
-*Create a database
+* Create a database
   `_mqcouch->createDatabase("testDatabase");`
 
-*Add a document
+* Add a document
   `
   _mqcouch->addDocument("testDatabase",  QJsonDocument(QJsonObject{
                                                          {"name", "test"},
                                                          {"title", "Hello World!"}
                                                      }));
   `
-*See revision of document
+* See revision of document
   ` 
     qDebug() << "Revision List";
     //Sample id
@@ -37,7 +37,7 @@ open the main.cpp and add your changes
         qDebug() << _mqcouch->getDocumentRevision("albums", id, rev).data;
     }  
   `
-*Get database(collection) with limit and order methods
+* Get database(collection) with limit and order methods
   `
     for(auto i : _mqcouch->getDocumentList("albums", 2, true))
     {
