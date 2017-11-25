@@ -201,6 +201,11 @@ QVariant mqhttp::custom(QString url, QList<mq_httpHeader> headers, QString verb,
             doc = QJsonDocument::fromJson(response);
             return doc;
         }
+        else if (type == STATUS)
+        {
+            QString status = QString::number(m_response->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt());
+            return status;
+        }
         else
             return QString::fromLatin1(response);
     }
@@ -246,6 +251,11 @@ QVariant mqhttp::custom(QString url, QList<mq_httpHeader> headers, QString verb,
         {
             QJsonDocument doc = QJsonDocument::fromJson(response);
             return doc;
+        }
+        else if (type == STATUS)
+        {
+            QString status = QString::number(m_response->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt());
+            return status;
         }
         else
             return QString::fromLatin1(response);

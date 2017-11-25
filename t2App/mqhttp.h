@@ -37,7 +37,8 @@ typedef struct mq_response{
 enum responseType{
     JSON = 0,
     HTML = 1,
-    XML  = 2
+    XML  = 2,
+    STATUS = 3
 };
 
 class mqhttp : public QObject

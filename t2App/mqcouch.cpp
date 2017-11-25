@@ -580,6 +580,16 @@ bool mqcouch::removeAttachmentFromDocument(QString database, _mq_document fdoc, 
     return false;
 }
 
+bool mqcouch::checkDatabase(QString databaseName)
+{
+    for(auto db : allDatabases())
+    {
+        if(db == databaseName)
+            return true;
+    }
+    return false;
+}
+
 QStringList mqcouch::allDatabases()
 {
     QString _query = databaseUrl + "/" + "_all_dbs";

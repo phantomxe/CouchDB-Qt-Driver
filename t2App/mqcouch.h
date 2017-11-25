@@ -193,6 +193,58 @@ public:
      */
     bool removeAttachmentFromDocument(QString database, _mq_document fdoc, QString attachmentName);
 
+    //Database templating
+    class mqdatabase
+    {
+        public:
+            mqdatabase(mqcouch *connection, const QString databaseName)
+            {
+                m_databaseName = databaseName;
+                m_connection = connection;
+            }
+
+            inline mqdatabase &operator <<(const QJsonDocument &doc)
+            {
+                m_connection->addDocument(m_databaseName, doc);
+                return *this;
+            }
+
+            inline void operator = (const mqdatabase &d)
+            {
+                this->m_databaseName = d.m_databaseName;
+                this->m_connection = d.m_connection;
+            }
+
+        private:
+            QString m_databaseName;
+            mqcouch *m_connection;
+    };
+
+    /**
+     * @brief getDatabase If couchDB contains that collection, returns it back. Except that, it will be create automatically.
+     * @param database collection name
+     * @return object
+   */
+    mqdatabase getDatabase(QString databaseName)
+    {
+        if(checkDatabase(databaseName))
+        {
+            return mqdatabase(this, databaseName);
+        }
+        else
+        {
+            createDatabase(databaseName);
+            return mqdatabase(this, databaseName);
+        }
+    }
+
+    /**
+     * @brief checkDatabase Check the database on couchDB
+     * @param databaseName collection name
+     * @return state of success
+     */
+    bool checkDatabase(QString databaseName);
+
     /**
      * @brief createDatabase Create new empty database
      * @param databaseName collection name
