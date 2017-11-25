@@ -1,6 +1,15 @@
 # CouchDB-Qt-Driver
 simple couchDb driver for Qt
 
+## Development
+* Easy to use database/collection method
+```
+  auto songs = _mqcouch->getDatabase("songs");
+  songs << QJsonDocument(QJsonObject{
+                             {"name", "test"},
+                             {"title", "New song!"}
+                         });
+```
 ## Examples
 open the main.cpp and add your changes
 
